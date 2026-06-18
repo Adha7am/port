@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdulrahman Haitham — Backend .NET Developer</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:       #0d1117;
+      --surface:  #161b22;
+      --border:   #21262d;
+      --accent:   #58a6ff;
+      --accent2:  #3fb950;
+      --text:     #e6edf3;
+      --muted:    #8b949e;
+      --tag-bg:   #1f2937;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-brand span { color: var(--muted); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── SECTIONS ── */
+    section { padding: 72px 0; }
+    .container-narrow { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-name {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .hero-name .dot { color: var(--accent); }
+    .hero-role {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+      font-weight: 400;
+    }
+    .hero-summary {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .hero-ctas { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .btn-primary-custom {
+      background: var(--accent);
+      color: #0d1117;
+      border: none;
+      padding: .55rem 1.25rem;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity .2s;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-primary-custom:hover { opacity: .85; color: #0d1117; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: .55rem 1.25rem;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color .2s;
+      display: inline-flex; align-items: center; gap: .4rem;
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+    .hero-meta {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-meta-item {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: 13px; color: var(--muted);
+    }
+    .hero-meta-item i { color: var(--accent); font-size: 15px; }
+
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      margin-bottom: 2rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { border-bottom: 1px solid var(--border); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .about-text p { color: var(--muted); font-size: .93rem; margin-bottom: 1rem; }
+
+    /* ── SKILLS ── */
+    .skill-group { margin-bottom: 1.5rem; }
+    .skill-group-label {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: .6rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .skill-tag {
+      background: var(--tag-bg);
+      color: var(--text);
+      font-size: 12px;
+      padding: .25rem .65rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { border-bottom: 1px solid var(--border); }
+    .exp-item {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .exp-item::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 18px;
+      width: 2px;
+      bottom: -16px;
+      background: var(--border);
+    }
+    .exp-item:last-child::after { display: none; }
+    .exp-company {
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--text);
+    }
+    .exp-role {
+      font-size: .85rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: .2rem;
+    }
+    .exp-period {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: .5rem;
+    }
+    .exp-bullets { list-style: none; padding: 0; margin: 0; }
+    .exp-bullets li {
+      font-size: .88rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: .35rem;
+    }
+    .exp-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    /* ── PROJECTS ── */
+    #projects { border-bottom: 1px solid var(--border); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      transition: border-color .2s, transform .2s;
+      text-decoration: none;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .project-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+    .project-name {
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .project-icon { color: var(--muted); font-size: 1rem; flex-shrink: 0; }
+    .project-desc {
+      font-size: .83rem;
+      color: var(--muted);
+      flex: 1;
+    }
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .lang-dot {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: .35rem;
+    }
+    .lang-label { font-size: 11px; color: var(--muted); }
+    .project-stars { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: .25rem; }
+    .loading-msg { color: var(--muted); font-size: .9rem; }
+    .error-msg { color: #f85149; font-size: .85rem; }
+
+    /* ── EDUCATION ── */
+    #education { border-bottom: 1px solid var(--border); }
+    .edu-item { margin-bottom: 1.75rem; }
+    .edu-school { font-weight: 600; font-size: .95rem; }
+    .edu-degree { font-size: .85rem; color: var(--accent); }
+    .edu-period { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+    /* ── ACHIEVEMENTS ── */
+    #achievements { border-bottom: 1px solid var(--border); }
+    .achievement-item {
+      display: flex; align-items: flex-start; gap: .75rem;
+      margin-bottom: 1rem;
+      padding: .85rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .achievement-icon { color: var(--accent2); font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+    .achievement-text { font-size: .88rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact { padding: 72px 0; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      padding: .55rem 1rem;
+      border-radius: 6px;
+      transition: border-color .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--text); }
+    .contact-link i { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── LANG COLORS ── */
+    .lang-csharp    { background: #178600; }
+    .lang-js        { background: #f1e05a; }
+    .lang-ts        { background: #3178c6; }
+    .lang-python    { background: #3572A5; }
+    .lang-html      { background: #e34c26; }
+    .lang-css       { background: #563d7c; }
+    .lang-java      { background: #b07219; }
+    .lang-go        { background: #00ADD8; }
+    .lang-other     { background: #8b949e; }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#hero">abdulrahman<span> Haitham</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="container-narrow">
+    <p class="eyebrow">Backend Developer</p>
+    <h1 class="hero-name">Abdulrahman<br>Haitham<span class="dot">.</span></h1>
+    <p class="hero-role">Building APIs and database-driven systems with .NET &amp; C#</p>
+    <p class="hero-summary">
+      Motivated .NET developer with a solid foundation in C#, ASP.NET Core, and Entity Framework.
+      Experienced building RESTful APIs, real-time systems, and optimised database solutions.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://github.com/abdulrahman-79" target="_blank" class="btn-primary-custom">
+        <i class="bi bi-github"></i> GitHub Profile
+      </a>
+      <a href="https://www.linkedin.com/in/abdulrahman-haitham/" target="_blank" class="btn-ghost">
+        <i class="bi bi-linkedin"></i> LinkedIn
+      </a>
+      <a href="mailto:Abdulrahman.haitham79@gmail.com" class="btn-ghost">
+        <i class="bi bi-envelope"></i> Email Me
+      </a>
+    </div>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><i class="bi bi-geo-alt"></i> Cairo, Egypt</span>
+      <span class="hero-meta-item"><i class="bi bi-phone"></i> 01015807187</span>
+      <span class="hero-meta-item"><i class="bi bi-translate"></i> English &amp; Arabic — Native</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container-narrow">
+    <p class="section-label">// about</p>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a backend .NET developer based in Cairo, Egypt. My focus is on building clean, scalable APIs and
+          data-driven systems using ASP.NET Core and Entity Framework Core.
+        </p>
+        <p>
+          I have hands-on experience designing and maintaining production APIs at Luftborn, where I served as
+          the primary technical contact for a Denmark-based client — handling requirements, progress updates, and
+          feedback cycles end to end.
+        </p>
+        <p>
+          Earlier at Shadi Systems, I designed databases for hospital ERP systems and wrote fine-tuned stored
+          procedures that shipped successfully in Saudi Arabia.
+        </p>
+        <p>
+          I hold a Full-Stack .NET Development certificate from the Digital Egypt Pioneers Initiative (DEPI)
+          and am currently studying Computer Science at Fort Hays State University (USA).
+        </p>
+      </div>
+      <div>
+        <div class="skill-group">
+          <p class="skill-group-label">Backend</p>
+          <div class="skill-tags">
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">.NET Core</span>
+            <span class="skill-tag">ASP.NET Core</span>
+            <span class="skill-tag">Entity Framework</span>
+            <span class="skill-tag">RESTful APIs</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Database</p>
+          <div class="skill-tags">
+            <span class="skill-tag">SQL Server</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Stored Procedures</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Frontend</p>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Tools</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Visual Studio</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Soft Skills</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Communication</span>
+            <span class="skill-tag">Problem Solving</span>
+            <span class="skill-tag">Critical Thinking</span>
+            <span class="skill-tag">Teamwork</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="container-narrow">
+    <p class="section-label">// experience</p>
+    <h2 class="section-title">Work History</h2>
+
+    <div class="exp-item">
+      <p class="exp-role">Backend Developer</p>
+      <p class="exp-company">Luftborn</p>
+      <p class="exp-period">Oct 2025 — Present &nbsp;·&nbsp; Cairo, Egypt</p>
+      <ul class="exp-bullets">
+        <li>Designed and developed a scalable backend for a real-time trading game using ASP.NET Core, handling game logic, data persistence, and RESTful API design.</li>
+        <li>Built and maintained .NET Web APIs supporting core trading mechanics — asset transactions, portfolio tracking, and player leaderboards.</li>
+        <li>Served as the primary technical point of contact for a Denmark-based client, managing requirements gathering, progress updates, and feedback cycles.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <p class="exp-role">Database Developer</p>
+      <p class="exp-company">Shadi Systems</p>
+      <p class="exp-period">Jun 2023 — Mar 2024 &nbsp;·&nbsp; Cairo, Egypt</p>
+      <ul class="exp-bullets">
+        <li>Designed a database for a Nursing System and an Accounting System.</li>
+        <li>Wrote fine-tuned stored procedures optimised for best performance for both systems.</li>
+        <li>Part of the implementation team in the successful Go-Live of a full hospital ERP in Saudi Arabia.</li>
+        <li>Trained nurses on the nursing system and acted as the vocal point between clients and developers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="container-narrow">
+    <p class="section-label">// projects</p>
+    <h2 class="section-title">GitHub Repositories</h2>
+    <div id="projects-grid" class="projects-grid">
+      <p class="loading-msg"><i class="bi bi-arrow-repeat"></i> Loading repositories…</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section id="education">
+  <div class="container-narrow">
+    <p class="section-label">// education</p>
+    <h2 class="section-title">Academic Background</h2>
+
+    <div class="edu-item">
+      <p class="edu-school">Fort Hays State University</p>
+      <p class="edu-degree">Bachelor of Science, Computer Science</p>
+      <p class="edu-period">Expected May 2028 &nbsp;·&nbsp; Kansas, USA</p>
+    </div>
+
+    <div class="edu-item">
+      <p class="edu-school">Al-Azhar University</p>
+      <p class="edu-degree">Bachelor of Commerce, Statistics Department</p>
+      <p class="edu-period">Expected Jun 2026 &nbsp;·&nbsp; Cairo, Egypt</p>
+    </div>
+
+    <div class="edu-item">
+      <p class="edu-school">Northern Virginia Community College</p>
+      <p class="edu-degree">A.A.S in Information Systems Technology</p>
+      <p class="edu-period">Graduated May 2024 &nbsp;·&nbsp; Virginia, USA</p>
+    </div>
+
+    <div class="edu-item">
+      <p class="edu-school">Digital Egypt Pioneers Initiative (DEPI)</p>
+      <p class="edu-degree">Certificate — Full-Stack .NET Development</p>
+      <p class="edu-period">May 2025</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACHIEVEMENTS ══ -->
+<section id="achievements">
+  <div class="container-narrow">
+    <p class="section-label">// achievements</p>
+    <h2 class="section-title">Awards &amp; Activities</h2>
+
+    <div class="achievement-item">
+      <i class="bi bi-trophy achievement-icon"></i>
+      <p class="achievement-text">
+        <strong style="color:var(--text)">1st Place — Falling Walls Lab International, Berlin</strong><br>
+        Represented Egypt and won first place at the international edition in Berlin, Germany. Nov 2023
+      </p>
+    </div>
+
+    <div class="achievement-item">
+      <i class="bi bi-award achievement-icon"></i>
+      <p class="achievement-text">
+        <strong style="color:var(--text)">1st Place — Falling Walls Lab Egypt</strong><br>
+        Won first place at the national edition in Cairo, qualifying for the international stage. Jul 2023
+      </p>
+    </div>
+
+    <div class="achievement-item">
+      <i class="bi bi-people achievement-icon"></i>
+      <p class="achievement-text">
+        <strong style="color:var(--text)">2nd Place — UNICEF Social Innovation Competition</strong><br>
+        Member and presenter in Enactus Al-Azhar team; awarded 2nd place at the UNICEF Social Innovation Competition. May 2022
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="container-narrow">
+    <p class="section-label">// contact</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <p style="color:var(--muted); font-size:.93rem; max-width:480px;">
+      Open to backend .NET roles and interesting project collaborations.
+      Reach out via email or connect on LinkedIn.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:Abdulrahman.haitham79@gmail.com" class="contact-link">
+        <i class="bi bi-envelope-fill"></i> Abdulrahman.haitham79@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/abdulrahman-haitham/" target="_blank" class="contact-link">
+        <i class="bi bi-linkedin"></i> LinkedIn
+      </a>
+      <a href="https://github.com/abdulrahman-79" target="_blank" class="contact-link">
+        <i class="bi bi-github"></i> GitHub
+      </a>
+      <a href="tel:01015807187" class="contact-link">
+        <i class="bi bi-telephone-fill"></i> 01015807187
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span>abdulrahman-79 &nbsp;·&nbsp; built with Bootstrap 5 &nbsp;·&nbsp; Cairo, Egypt</span>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // ── Language colour map ──
+  const langColors = {
+    'C#':         { cls: 'lang-csharp',  hex: '#178600' },
+    'JavaScript': { cls: 'lang-js',      hex: '#f1e05a' },
+    'TypeScript': { cls: 'lang-ts',      hex: '#3178c6' },
+    'Python':     { cls: 'lang-python',  hex: '#3572A5' },
+    'HTML':       { cls: 'lang-html',    hex: '#e34c26' },
+    'CSS':        { cls: 'lang-css',     hex: '#563d7c' },
+    'Java':       { cls: 'lang-java',    hex: '#b07219' },
+    'Go':         { cls: 'lang-go',      hex: '#00ADD8' },
+  };
+
+  function getLangDot(lang) {
+    if (!lang) return '';
+    const info = langColors[lang] || { cls: 'lang-other', hex: '#8b949e' };
+    return `<span class="lang-dot ${info.cls}" style="background:${info.hex}"></span>
+            <span class="lang-label">${lang}</span>`;
+  }
+
+  // ── Description fallback map ──
+  const descFallbacks = {
+    'EFPersonApp': 'A C# demo project practising Entity Framework Core CRUD operations with a Person entity and DbContext.',
+    'BestStoreApi': 'RESTful API for a store management system built with ASP.NET Core and Entity Framework. Supports full CRUD operations for products with a SQL Server backend.',
+    'DapperStudentApp': 'Dapper Student App is a lightweight ASP.NET application that demonstrates CRUD operations for managing student records using Dapper and SQL Server. The project showcases high-performance data access, clean repository-based architecture, and efficient database interaction with a micro-ORM.',
+    'Bulky': 'Bulky is a full-stack ASP.NET Core MVC e-commerce application for online book sales. It features secure authentication, role-based authorization, product and order management, shopping cart functionality, online payment integration, and a clean N-Tier architecture using the Repository and Unit of Work patterns for maintainable, scalable code.'
+  };
+
+  function cardDesc(repo) {
+    if (repo.description) return repo.description;
+    return descFallbacks[repo.name] || 'No description provided.';
+  }
+
+  // ── Fetch repos from GitHub API ──
+  async function loadRepos() {
+    const grid = document.getElementById('projects-grid');
+    try {
+      const res = await fetch('https://api.github.com/users/abdulrahman-79/repos?sort=updated&per_page=30&type=public');
+      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+      const repos = await res.json();
+
+      // Filter out forked repos (optional — remove the filter to show forks too)
+      const ownRepos = repos.filter(r => !r.fork);
+
+      if (ownRepos.length === 0) {
+        grid.innerHTML = '<p class="error-msg">No public repositories found.</p>';
+        return;
+      }
+
+      grid.innerHTML = ownRepos.map(repo => console.log(repo.name) || `
+        <a href="${repo.html_url}" target="_blank" class="project-card">
+          <div class="project-card-header">
+            <span class="project-name">${repo.name}</span>
+            <i class="bi bi-github project-icon"></i>
+          </div>
+          <p class="project-desc">${cardDesc(repo)}</p>
+          <div class="project-footer">
+            <div class="lang-info">${getLangDot(repo.language)}</div>
+            <div class="project-stars"><i class="bi bi-star-fill"></i> ${repo.stargazers_count}</div>
+          </div>
+        </a>
+      `
+      ).join('');
+    } catch (err) {
+      grid.innerHTML = `<p class="error-msg"><i class="bi bi-exclamation-circle me-1"></i>Could not load repositories. <a href="https://github.com/abdulrahman-79?tab=repositories" target="_blank" style="color:var(--accent)">View on GitHub →</a></p>`;
+      console.error(err);
+    }
+  }
+
+  loadRepos();
+</script>
+</body>
+</html>

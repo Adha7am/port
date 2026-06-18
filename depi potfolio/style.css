@@ -1,0 +1,117 @@
+/* Custom Component Classes */
+
+/* Skills */
+.skill-chip {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1f1f2e;
+  color: #888899;
+  background-color: #15151e;
+  transition: all 0.2s;
+  cursor: default;
+  display: inline-block;
+}
+.skill-chip:hover {
+  transform: translateY(-2px);
+  border-color: #c8f04a;
+  color: #c8f04a;
+}
+.skill-chip.primary {
+  border-color: #c8f04a;
+  color: #c8f04a;
+  background-color: rgba(200, 240, 74, 0.06);
+}
+
+/* Education */
+.edu-card {
+  background-color: #15151e;
+  border: 1px solid #1f1f2e;
+  padding: 2rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+@media (max-width: 640px) {
+  .edu-card {
+    padding: 1.5rem 1.4rem;
+  }
+}
+.edu-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: #c8f04a;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s;
+}
+.edu-card:hover {
+  border-color: #c8f04a;
+  transform: translateX(4px);
+}
+.edu-card:hover::before {
+  transform: scaleY(1);
+}
+
+.edu-topic {
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  background-color: #111118;
+  border: 1px solid #1f1f2e;
+  color: #888899;
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+
+/* Projects */
+.project-card {
+  background-color: #15151e;
+  border: 1px solid #1f1f2e;
+  min-width: 300px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 640px) {
+  .project-card {
+    min-width: 350px;
+  }
+}
+.project-card:hover {
+  border-color: #c8f04a;
+  transform: translateY(-8px);
+}
+.project-card:hover .project-img {
+  transform: scale(1.1);
+}
+
+.project-img-wrapper {
+  aspect-ratio: 16 / 9;
+  background-color: #111118;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+/* Utilities */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
